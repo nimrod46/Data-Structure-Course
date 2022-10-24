@@ -1,0 +1,2 @@
+This test checks the correctness of ListTestInteger on a wrong DLinkedList<Integer>
+Thus, This test should be failed.

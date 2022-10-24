@@ -1,0 +1,1 @@
+-DclassToTest=DLinkedList org.junit.runner.JUnitCore ListTestInteger

@@ -1,0 +1,1 @@
+-DclassToTest=DLinkedListMistakeInsert2 org.junit.runner.JUnitCore ListTestInteger

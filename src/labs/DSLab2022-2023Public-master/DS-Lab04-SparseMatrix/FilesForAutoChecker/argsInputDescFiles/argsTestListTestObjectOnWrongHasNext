@@ -1,0 +1,1 @@
+-DclassToTest=DLinkedListMistakeHasNext org.junit.runner.JUnitCore ListTestObject
