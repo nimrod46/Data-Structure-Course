@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class ArrayPointList implements PointList {
     private final Point[] points;
-    private final int size;
+    private final int maxSize;
     int cursor;
     private int lastElementIndex;
 
@@ -14,15 +14,18 @@ public class ArrayPointList implements PointList {
         this(MAX_SIZE);
     }
 
-    public ArrayPointList(int size) {
-        this.size = size;
-        points = new Point[size];
+    public ArrayPointList(int maxSize) {
+        this.maxSize = maxSize;
+        points = new Point[maxSize];
         cursor = -1;
         lastElementIndex = -1;
     }
 
     @Override
     public void append(Point newPoint) {
+        if(isFull()) {
+            throw new RuntimeException("Array point is full!");
+        }
         points[++cursor] = newPoint;
         lastElementIndex++;
     }
@@ -43,7 +46,7 @@ public class ArrayPointList implements PointList {
 
     @Override
     public boolean isFull() {
-        return cursor == size - 1;
+        return lastElementIndex == maxSize - 1;
     }
 
     @Override
