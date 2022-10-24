@@ -1,1 +1,0 @@
--DclassToTest=DLinkedListGood org.junit.runner.JUnitCore ListTestObject

@@ -1,2 +1,0 @@
-This test checks the correctness of ListTestObject on a wrong DLinkedList<Object>
-Thus, This test should be failed.
