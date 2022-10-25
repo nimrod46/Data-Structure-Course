@@ -1,4 +1,4 @@
-package labs.DSLab20222023Publicmaster.DSLab01ArrayPointList;
+package labs.lab01.files;
 
 import java.awt.*;
 

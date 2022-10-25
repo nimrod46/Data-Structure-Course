@@ -1,6 +1,6 @@
 package labs.lab01;
 
-import labs.DSLab20222023Publicmaster.DSLab01ArrayPointList.PointList;
+import labs.lab01.files.PointList;
 
 import java.awt.*;
 

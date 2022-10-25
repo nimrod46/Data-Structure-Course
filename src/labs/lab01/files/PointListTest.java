@@ -1,4 +1,4 @@
-package labs.DSLab20222023Publicmaster.DSLab01ArrayPointList;
+package labs.lab01.files;
 
 import labs.lab01.ArrayPointList;
 import org.junit.Before;
