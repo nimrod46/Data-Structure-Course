@@ -46,7 +46,7 @@ public class ArrayPointList implements PointList {
 
     @Override
     public boolean goToBeginning() {
-        if(cursor == -1) {
+        if(isEmpty()) {
             return false;
         }
         cursor = 0;
@@ -73,7 +73,7 @@ public class ArrayPointList implements PointList {
 
     @Override
     public boolean goToPrior() {
-        if(cursor == 0) {
+        if(isEmpty() || cursor == 0) {
             return false;
         }
         cursor--;
