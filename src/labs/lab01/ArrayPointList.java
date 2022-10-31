@@ -1,13 +1,11 @@
 package labs.lab01;
 
-import labs.lab01.files.PointList;
-
 import java.awt.*;
 
 public class ArrayPointList implements PointList {
     private final Point[] points;
     private final int maxSize;
-    int cursor;
+    private int cursor;
     private int lastElementIndex;
 
     public ArrayPointList() {
@@ -26,15 +24,12 @@ public class ArrayPointList implements PointList {
         if(isFull()) {
             throw new RuntimeException("Array point is full!");
         }
-        points[++cursor] = newPoint;
-        lastElementIndex++;
+        points[++lastElementIndex] = newPoint;
+        cursor = lastElementIndex;
     }
 
     @Override
     public void clear() {
-        for (int i = 0; i < cursor; i++) {
-            points[cursor] = null;
-        }
         cursor = -1;
         lastElementIndex = -1;
     }
@@ -60,7 +55,7 @@ public class ArrayPointList implements PointList {
 
     @Override
     public boolean goToEnd() {
-        if(lastElementIndex == -1) {
+        if(isEmpty()) {
             return false;
         }
         cursor = lastElementIndex;

@@ -1,7 +1,5 @@
 package labs.lab01;
 
-import labs.lab01.files.PointList;
-
 import java.awt.*;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -34,13 +32,13 @@ public class PointListCommandLine {
                     break;
                 case "curr":
                     vertex = polygon.getCursor();
-                    System.out.println("(" + vertex.x + "," + vertex.y + ")");
+                    System.out.println("(" + vertex.x + ", " + vertex.y + ")");
                     break;
                 case "next":
                     System.out.println(polygon.goToNext());
                     break;
                 case "prev":
-                    polygon.goToPrior();
+                    System.out.println(polygon.goToPrior());
                     break;
                 case "start":
                     System.out.println(polygon.goToBeginning());

@@ -1,6 +1,7 @@
 package labs.lab01.files;
 
 import labs.lab01.ArrayPointList;
+import labs.lab01.PointList;
 import org.junit.Before;
 import org.junit.Test;
 
