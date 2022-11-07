@@ -3,7 +3,7 @@ package labs.lab02;
 public class DiagonalMatrix implements Matrix {
 
     private final int n;
-    private final int size;
+    private final int arrSize;
     private final double[] data;
     private boolean isTranspose;
 
@@ -11,10 +11,10 @@ public class DiagonalMatrix implements Matrix {
         this(MAX_SIZE);
     }
 
-    public DiagonalMatrix(int size) {
-        n = size;
-        this.size = 2 * size - 1;
-        data = new double[this.size];
+    public DiagonalMatrix(int n) {
+        this.n = n;
+        this.arrSize = 2 * n - 1;
+        data = new double[this.arrSize];
         isTranspose = false;
     }
 
@@ -42,11 +42,11 @@ public class DiagonalMatrix implements Matrix {
     @Override
     public Matrix getTranspose() {
         Matrix m = new DiagonalMatrix(n);
-        for (int i = 1; i <= n ; i++) { //Copy first row in reverse order
+        for (int i = 1; i <= n; i++) { //Copy first row in reverse order
             m.set(1, i, this.get(n, n - i + 1));
         }
 
-        for (int i = 1; i <= n ; i++) { //Copy last row in reverse order
+        for (int i = 1; i <= n; i++) { //Copy last row in reverse order
             m.set(n, i, this.get(1, n - i + 1));
         }
         return m;
@@ -54,7 +54,7 @@ public class DiagonalMatrix implements Matrix {
 
     private int getDiagonalIndex(int i, int j) {
         int index = isTranspose ? j - i : i - j;
-        return index >= 0 ? index : index + size;
+        return index >= 0 ? index : index + arrSize;
     }
 
     @Override
@@ -63,7 +63,7 @@ public class DiagonalMatrix implements Matrix {
         for (int i = 1; i <= n; i++) {
             for (int j = 1; j <= n; j++) {
                 s.append(get(i, j));
-                if(j != n) {
+                if (j != n) {
                     s.append("\t");
                 }
             }
