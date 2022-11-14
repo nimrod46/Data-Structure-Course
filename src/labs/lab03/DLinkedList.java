@@ -63,15 +63,19 @@ public class DLinkedList<T> implements List<T> {
         if (isEmpty() || node == null) {
             return null;
         }
+        cursor = node.next;
+
         if(node.prev != null) {
             node.prev.next = node.next;
         } else {
             head = node.next;
         }
-        cursor = node.next;
-        if (node.next == null) {
-            last = node.prev;
+
+        if(node.next != null) {
+            node.next.prev = node.prev;
+        } else {
             cursor = head;
+            last = node.prev;
         }
         return node.element;
     }
