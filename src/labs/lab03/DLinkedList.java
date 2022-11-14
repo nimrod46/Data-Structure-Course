@@ -35,18 +35,6 @@ public class DLinkedList<T> implements List<T> {
 
     @Override
     public T remove() {
-//        if (isEmpty()) {
-//            return null;
-//        }
-//        DNode tmp = cursor;
-//        cursor.prev.next = cursor.next;
-//        cursor = tmp.next;
-//        if(tmp.next == null) {
-//            last = tmp.prev;
-//            cursor = head;
-//        }
-//        return tmp.element;
-
         return removeNode(cursor);
     }
 
