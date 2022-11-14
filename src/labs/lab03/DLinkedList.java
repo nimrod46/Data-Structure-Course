@@ -18,7 +18,6 @@ public class DLinkedList<T> implements List<T> {
         }
         DNode newNode = new DNode(newElement);
 
-
         if (!isEmpty()) {
             newNode.next = cursor.next;
             newNode.prev = cursor;
@@ -35,7 +34,25 @@ public class DLinkedList<T> implements List<T> {
 
     @Override
     public T remove() {
-        return removeNode(cursor);
+        DNode node = cursor;
+        if (isEmpty()) {
+            return null;
+        }
+
+        if(hasPrev()) {
+            cursor.prev.next = cursor.next;
+        } else {
+            head = cursor.next;
+        }
+
+        if(hasNext()) {
+            cursor.next.prev = cursor.prev;
+            cursor = cursor.next;
+        } else {
+            last = cursor.prev;
+            cursor = head;
+        }
+        return node.element;
     }
 
     @Override
@@ -44,28 +61,11 @@ public class DLinkedList<T> implements List<T> {
         while (current != null && !current.element.equals(element)) {
             current = current.next;
         }
-        return removeNode(current);
-    }
-
-    private T removeNode(DNode node) {
-        if (isEmpty() || node == null) {
+        if(current == null) {
             return null;
         }
-        cursor = node.next;
-
-        if(node.prev != null) {
-            node.prev.next = node.next;
-        } else {
-            head = node.next;
-        }
-
-        if(node.next != null) {
-            node.next.prev = node.prev;
-        } else {
-            cursor = head;
-            last = node.prev;
-        }
-        return node.element;
+        cursor = current;
+        return remove();
     }
 
     @Override
