@@ -269,5 +269,13 @@ public abstract class ListTest<T> {
 		dList.insert(newInstance2);
 		assertFalse(dList.hasNext());
 		assertTrue(dList.hasPrev());
+
+		assertEquals(dList.getPrev(), newInstance1);
+		assertTrue(dList.hasNext());
+		assertFalse(dList.hasPrev());
+
+		dList.remove();
+		assertFalse(dList.hasNext());
+		assertFalse(dList.hasPrev());
 	}
 }
