@@ -13,17 +13,19 @@ public class DLinkedList<T> implements List<T> {
 
     @Override
     public void insert(T newElement) {
-        if(newElement == null) {
+        if (newElement == null) {
             throw new IllegalArgumentException("newElement cannot be null!");
         }
         DNode newNode = new DNode(newElement);
 
         if (!isEmpty()) {
-            newNode.next = cursor.next;
+            newNode.setNext(cursor.next);
             newNode.prev = cursor;
             cursor.next = newNode;
-            if(newNode.next == null) {
+            if (newNode.next == null) {
                 last = newNode;
+            } else {
+                newNode.next.prev = newNode;
             }
         } else {
             head = newNode;
@@ -39,13 +41,13 @@ public class DLinkedList<T> implements List<T> {
             return null;
         }
 
-        if(hasPrev()) {
+        if (hasPrev()) {
             cursor.prev.next = cursor.next;
         } else {
             head = cursor.next;
         }
 
-        if(hasNext()) {
+        if (hasNext()) {
             cursor.next.prev = cursor.prev;
             cursor = cursor.next;
         } else {
@@ -61,7 +63,7 @@ public class DLinkedList<T> implements List<T> {
         while (current != null && !current.element.equals(element)) {
             current = current.next;
         }
-        if(current == null) {
+        if (current == null) {
             return null;
         }
         cursor = current;
@@ -77,14 +79,26 @@ public class DLinkedList<T> implements List<T> {
 
     @Override
     public void replace(T newElement) {
-        if(newElement == null) {
+        if (newElement == null) {
             throw new IllegalArgumentException("newElement cannot be null!");
         }
 
-        if(isEmpty()) {
-            throw new IllegalArgumentException("newElement cannot be null!");
+        if (isEmpty()) {
+            throw new IllegalArgumentException("List in empty!");
         }
-        cursor.element = newElement;
+
+        DNode prevNode = cursor.getPrev();
+        remove();
+        if (prevNode != null) {
+            cursor = prevNode;
+            insert(newElement);
+        } else {
+            DNode node = new DNode(newElement);
+            node.setNext(head);
+            head.setPrev(node);
+            head = node;
+            cursor = node;
+        }
     }
 
     @Override
@@ -133,7 +147,7 @@ public class DLinkedList<T> implements List<T> {
         if(isEmpty()) {
             return null;
         }
-        return cursor.element;
+        return cursor.getElement();
     }
 
     @Override
