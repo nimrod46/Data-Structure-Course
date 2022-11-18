@@ -19,13 +19,13 @@ public class DLinkedList<T> implements List<T> {
         DNode newNode = new DNode(newElement);
 
         if (!isEmpty()) {
-            newNode.setNext(cursor.next);
-            newNode.prev = cursor;
-            cursor.next = newNode;
-            if (newNode.next == null) {
+            newNode.setNext(cursor.getNext());
+            newNode.setPrev(cursor);
+            cursor.setNext(newNode);
+            if (newNode.getNext() == null) {
                 last = newNode;
             } else {
-                newNode.next.prev = newNode;
+                newNode.getNext().setPrev(newNode);
             }
         } else {
             head = newNode;
@@ -42,26 +42,26 @@ public class DLinkedList<T> implements List<T> {
         }
 
         if (hasPrev()) {
-            cursor.prev.next = cursor.next;
+            cursor.getPrev().setNext(cursor.getNext());
         } else {
-            head = cursor.next;
+            head = cursor.getNext();
         }
 
         if (hasNext()) {
-            cursor.next.prev = cursor.prev;
-            cursor = cursor.next;
+            cursor.getNext().setPrev(cursor.getPrev());
+            cursor = cursor.getNext();
         } else {
-            last = cursor.prev;
+            last = cursor.getPrev();
             cursor = head;
         }
-        return node.element;
+        return node.getElement();
     }
 
     @Override
     public T remove(T element) {
         DNode current = head;
-        while (current != null && !current.element.equals(element)) {
-            current = current.next;
+        while (current != null && !current.getElement().equals(element)) {
+            current = current.getNext();
         }
         if (current == null) {
             return null;
@@ -126,20 +126,20 @@ public class DLinkedList<T> implements List<T> {
 
     @Override
     public T getNext() {
-        if(isEmpty() || cursor.next == null) {
+        if(isEmpty() || cursor.getNext() == null) {
             return null;
         }
-        cursor = cursor.next;
-        return cursor.element;
+        cursor = cursor.getNext();
+        return cursor.getElement();
     }
 
     @Override
     public T getPrev() {
-        if(isEmpty() || cursor.prev == null) {
+        if(isEmpty() || cursor.getPrev() == null) {
             return null;
         }
-        cursor = cursor.prev;
-        return cursor.element;
+        cursor = cursor.getPrev();
+        return cursor.getElement();
     }
 
     @Override
@@ -155,7 +155,7 @@ public class DLinkedList<T> implements List<T> {
         if(isEmpty()) {
             return false;
         }
-        return cursor.next != null;
+        return cursor.getNext() != null;
     }
 
     @Override
@@ -163,11 +163,11 @@ public class DLinkedList<T> implements List<T> {
         if(isEmpty()) {
             return false;
         }
-        return cursor.prev != null;
+        return cursor.getPrev() != null;
     }
 
     private class DNode {
-        private T element;
+        private final T element;
         private DNode next;
         private DNode prev;
 
