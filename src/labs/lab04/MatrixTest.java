@@ -160,6 +160,8 @@ public class MatrixTest {
 
         matrix6.set(2, 1, newInstance2);
         assertEquals(newInstance2, matrix6.get(2, 1));
+        matrix6.set(2, 1, newInstance3);
+        assertEquals(newInstance3, matrix6.get(2, 1));
         matrix6.set(6, 6, newInstance3);
         assertEquals(newInstance3, matrix6.get(6, 6));
         matrix6.set(6, 6, newInstance4);
@@ -181,7 +183,28 @@ public class MatrixTest {
         chackTrans(matrix3);
 
 
-        //TODO: Add testing for mat6
+        matrix6.set(1, 1, newInstance2);
+        matrix6.set(2, 3, newInstance3);
+        matrix6.set(4, 5, newInstance4);
+        matrix6.set(6, 1, newInstance5);
+        matrix6.transpose();
+
+        chackTrans(matrix6);
+        assertEquals(newInstance4, matrix6.get(5, 4));
+        assertEquals(newInstance5, matrix6.get(1, 6));
+        assertEquals(defaultVal, matrix6.get(2, 3));
+        assertEquals(defaultVal, matrix6.get(4, 5));
+
+        matrix6.set(3, 2, newInstance3);
+        assertEquals(newInstance3, matrix6.get(3, 2));
+
+        matrix6.transpose();
+
+        assertEquals(newInstance4, matrix6.get(4, 5));
+        assertEquals(newInstance5, matrix6.get(6, 1));
+        assertEquals(defaultVal, matrix6.get(3, 2));
+        assertEquals(defaultVal, matrix6.get(5, 4));
+        assertEquals(newInstance3, matrix6.get(2, 3));
     }
 
     private void chackTrans(Matrix<Integer> transM) {

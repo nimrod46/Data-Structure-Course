@@ -23,9 +23,8 @@ public class SparseMatrix<T> implements Matrix<T> {
 
     @Override
     public T get(int row, int col) {
-        if (row < 1 || col < 1 || row > size || col > size) {
-            throw new IllegalArgumentException("Row or column does not match matrix size!");
-        }
+        validateInput(row, col);
+
         SparseMatrixEntry entry = getElementAt(row, col);
         if (entry != null) {
             return entry.getValue();
@@ -35,9 +34,8 @@ public class SparseMatrix<T> implements Matrix<T> {
 
     @Override
     public void set(int row, int col, T element) {
-        if (row < 1 || col < 1 || row > size || col > size) {
-            throw new IllegalArgumentException("Row or column does not match matrix size!");
-        }
+        validateInput(row, col);
+
         SparseMatrixEntry entry = getElementAt(row, col);
         if (entry != null) {
             entry.setValue(element);
@@ -66,6 +64,12 @@ public class SparseMatrix<T> implements Matrix<T> {
 
     private boolean matchRowAndColumn(int row, int col, SparseMatrixEntry entry) {
         return isTranspose ? entry.row == col && entry.col == row : entry.row == row && entry.col == col;
+    }
+
+    private void validateInput(int row, int col) {
+        if (row < 1 || col < 1 || row > size || col > size) {
+            throw new IllegalArgumentException("Row or column does not match matrix size!");
+        }
     }
 
     private class SparseMatrixEntry {
