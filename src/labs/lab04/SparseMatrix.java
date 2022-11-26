@@ -37,12 +37,21 @@ public class SparseMatrix<T> implements Matrix<T> {
         validateInput(row, col);
 
         SparseMatrixEntry entry = getElementAt(row, col);
-        if (entry != null) {
-            entry.setValue(element);
+        if (entry == null) {
+            if(element.equals(defaultValue)) {
+                return;
+            }
+            SparseMatrixEntry entryToAdd = new SparseMatrixEntry(row, col, element);
+            data.insert(entryToAdd);
             return;
         }
-        SparseMatrixEntry entryToAdd = new SparseMatrixEntry(row, col, element);
-        data.insert(entryToAdd);
+
+        if (element.equals(defaultValue)) { //Remove element from data if it's the default one
+            data.remove(entry);
+            return;
+        }
+
+        entry.setValue(element);
     }
 
     @Override
@@ -63,7 +72,7 @@ public class SparseMatrix<T> implements Matrix<T> {
     }
 
     private boolean matchRowAndColumn(int row, int col, SparseMatrixEntry entry) {
-        return isTranspose ? entry.row == col && entry.col == row : entry.row == row && entry.col == col;
+        return isTranspose ? entry.getRow() == col && entry.getCol() == row : entry.getRow() == row && entry.getCol() == col;
     }
 
     private void validateInput(int row, int col) {
@@ -98,6 +107,7 @@ public class SparseMatrix<T> implements Matrix<T> {
         public void setCol(int col) {
             this.col = col;
         }
+
         public T getValue() {
             return value;
         }
