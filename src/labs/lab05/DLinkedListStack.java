@@ -17,7 +17,9 @@ public class DLinkedListStack<T> implements Stack<T>{
 
     @Override
     public T pop() {
-        return linkedList.remove();
+        T removed = linkedList.remove();
+        linkedList.goToEnd();
+        return removed;
     }
 
     @Override
@@ -28,5 +30,24 @@ public class DLinkedListStack<T> implements Stack<T>{
     @Override
     public boolean isEmpty() {
         return linkedList.isEmpty();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        str.append("[");
+        T t = linkedList.getCursor();
+        while (t != null) {
+            str.append(", ");
+            str.append(t);
+            t = linkedList.getPrev();
+        }
+        if(str.length() != 1) {
+            str.deleteCharAt(1);
+            str.deleteCharAt(1);
+        }
+        str.append("]");
+        linkedList.goToEnd();
+        return str.toString();
     }
 }
