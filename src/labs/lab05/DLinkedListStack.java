@@ -43,8 +43,7 @@ public class DLinkedListStack<T> implements Stack<T>{
             t = linkedList.getPrev();
         }
         if(str.length() != 1) {
-            str.deleteCharAt(1);
-            str.deleteCharAt(1);
+            str.delete(1, 3);
         }
         str.append("]");
         linkedList.goToEnd();
