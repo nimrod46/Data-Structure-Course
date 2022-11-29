@@ -8,48 +8,28 @@ import static java.io.StreamTokenizer.*;
 
 public class EvaluatePostfix {
 
-    private static StreamTokenizer tokenizer = new StreamTokenizer(new InputStreamReader(System.in));
-    private static Stack<Double> myStack = new DLinkedListStack<>();
+    private static final StreamTokenizer tokenizer = new StreamTokenizer(new InputStreamReader(System.in));
+    private static final Stack<Double> myStack = new DLinkedListStack<>();
 
     public static void main(String[] args) throws IOException {
         tokenizer.slashSlashComments(false);
         tokenizer.ordinaryChar('/');
-
-        tokenizer.nextToken();
-        int token = tokenizer.ttype;
-        while (token != TT_EOF && token != TT_WORD) {
-            if (token == TT_NUMBER) {
-                myStack.push(tokenizer.nval);
-            } else {
-                if (myStack.isEmpty()) {
-                    fault();
-                }
-                double d1 = myStack.pop();
-                if (myStack.isEmpty()) {
-                    fault();
-                }
-                double d2 = myStack.pop();
-                double res = 0;
-                switch ((char) token) {
-                    case '*':
-                        res = d2 * d1;
-                        break;
-                    case '/':
-                        res = d2 / d1;
-                        break;
-                    case '-':
-                        res = d2 - d1;
-                        break;
-                    case '+':
-                        res = d2 + d1;
-                        break;
-                }
-                myStack.push(res);
-            }
+        int token;
+        while (true) {
             tokenizer.nextToken();
             token = tokenizer.ttype;
-        }
+            if (token == TT_EOF || token == TT_WORD) {
+                break;
+            }
 
+            if (token == TT_NUMBER) {
+                myStack.push(tokenizer.nval);
+                continue;
+            }
+
+            double res = getResultByOp((char) token);
+            myStack.push(res);
+        }
 
         if (token == TT_WORD) {
             if (!tokenizer.sval.equals("quit")) {
@@ -60,6 +40,7 @@ public class EvaluatePostfix {
         if (myStack.isEmpty()) {
             fault();
         }
+
         double finalRes = myStack.pop();
 
         if (!myStack.isEmpty()) {
@@ -67,6 +48,36 @@ public class EvaluatePostfix {
         }
 
         System.out.println(finalRes);
+    }
+
+    private static double getResultByOp(char token) {
+        if (myStack.isEmpty()) {
+            fault();
+        }
+        double d1 = myStack.pop();
+        if (myStack.isEmpty()) {
+            fault();
+        }
+        double d2 = myStack.pop();
+        double res = 0;
+        switch (token) {
+            case '*':
+                res = d2 * d1;
+                break;
+            case '/':
+                res = d2 / d1;
+                break;
+            case '-':
+                res = d2 - d1;
+                break;
+            case '+':
+                res = d2 + d1;
+                break;
+            default:
+                fault();
+                break;
+        }
+        return res;
     }
 
     private static void fault() {
