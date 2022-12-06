@@ -33,10 +33,21 @@ public class ExpressionTree extends FullBinaryTree<String> {
      * Returns the infix expression corresponding to the current tree (*)
      */
     public String infix() {
-        //StringBuilder s = new StringBuilder();
-        //s.append(getLeft().inOrder());
+        return inOrder(" ", " ");
+    }
 
-        return inOrder("(", ")");
+    @Override
+    public String inOrder(String separationBeforeVal, String separationAfterVal) {
+        if (isLeaf()) {
+            return getValue();
+        }
+        StringBuilder s = new StringBuilder();
+        s.append("(");
+        s.append(getLeft().inOrder(separationBeforeVal, separationAfterVal));
+        s.append(separationBeforeVal).append(getValue()).append(separationAfterVal);
+        s.append(getRight().inOrder(separationBeforeVal, separationAfterVal));
+        s.append(")");
+        return s.toString();
     }
 
     /*

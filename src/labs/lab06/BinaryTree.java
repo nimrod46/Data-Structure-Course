@@ -90,14 +90,15 @@ public class BinaryTree<T> implements BinaryTreeI<T> {
 
     @Override
     public String preOrder(String separationBeforeVal, String separationAfterVal) {
-        String s = separationBeforeVal + value.toString() + separationAfterVal;
+        StringBuilder s = new StringBuilder();
+        s.append(separationBeforeVal).append(value.toString()).append(separationAfterVal);
         if (left != null) {
-            s += left.preOrder(separationBeforeVal, separationAfterVal);
+            s.append(left.preOrder(separationBeforeVal, separationAfterVal));
         }
         if (right != null) {
-            s += right.preOrder(separationBeforeVal, separationAfterVal);
+            s.append(right.preOrder(separationBeforeVal, separationAfterVal));
         }
-        return s;
+        return s.toString();
     }
 
     @Override
@@ -107,17 +108,17 @@ public class BinaryTree<T> implements BinaryTreeI<T> {
 
     @Override
     public String inOrder(String separationBeforeVal, String separationAfterVal) {
-        String s = "";
+        StringBuilder s = new StringBuilder();
         if (left != null) {
-            s += left.inOrder(separationBeforeVal, separationAfterVal);
+            s.append(left.inOrder(separationBeforeVal, separationAfterVal));
         }
 
-        s += separationBeforeVal + value.toString() + separationAfterVal;
+        s.append(separationBeforeVal).append(value.toString()).append(separationAfterVal);
 
         if (right != null) {
-            s += right.inOrder(separationBeforeVal, separationAfterVal);
+            s.append(right.inOrder(separationBeforeVal, separationAfterVal));
         }
-        return s;
+        return s.toString();
     }
 
     @Override
@@ -127,16 +128,16 @@ public class BinaryTree<T> implements BinaryTreeI<T> {
 
     @Override
     public String postOrder(String separationBeforeVal, String separationAfterVal) {
-        String s = "";
+        StringBuilder s = new StringBuilder();
         if (left != null) {
-            s += left.postOrder(separationBeforeVal, separationAfterVal);
+            s.append(left.postOrder(separationBeforeVal, separationAfterVal));
         }
 
         if (right != null) {
-            s += right.postOrder(separationBeforeVal, separationAfterVal);
+            s.append(right.postOrder(separationBeforeVal, separationAfterVal));
         }
 
-        s += separationBeforeVal + value.toString() + separationAfterVal;
-        return s;
+        s.append(separationBeforeVal).append(value.toString()).append(separationAfterVal);
+        return s.toString();
     }
 }
