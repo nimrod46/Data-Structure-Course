@@ -66,15 +66,14 @@ public class BinaryTree<T> implements BinaryTreeI<T> {
 
     @Override
     public int size() {
-        int leftSize = 0;
+        int size = 0;
         if (left != null) {
-            leftSize = left.size();
+            size += left.size();
         }
-        int rightSize = 0;
         if (right != null) {
-            rightSize = right.size();
+            size += right.size();
         }
-        return leftSize + rightSize + 1;
+        return size + 1;
     }
 
     @Override
