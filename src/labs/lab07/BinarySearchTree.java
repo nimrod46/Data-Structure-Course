@@ -81,7 +81,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
             return false;
         }
 
-        if (r > 0) {
+        if (r < 0) {
             if (root.right != null) {
                 return addNodeRecursively(root.right, newNode);
             }
@@ -103,48 +103,49 @@ public class BinarySearchTree<T extends Comparable<T>> {
      * @return True, if the element was removed. Otherwise false.
      */
     public boolean remove(T val) {
-        return removeRecursively(root, val);
+        int size = size();
+        root = removeRecursively(root, val);
+        return size != size();
     }
 
     private BstNode removeRecursively(BstNode node, T val) {
         if (node == null) {
-            return false;
+            return null;
         }
 
         int c = node.val.compareTo(val);
+
         if (c == 0) {
             if (node.right != null && node.left != null) {
                 node.val = getSuccessorFromRightRecursively(node.right);
-                removeRecursively(node.right, node.val);
-                return true;
+                node.right = removeRecursively(node.right, node.val);
+                return node;
             }
-        }
 
+            if (node.right != null) {
+                return node.right;
+            }
+
+            if (node.left != null) {
+                return node.left;
+            }
+            return null;
+        }
         if (c > 0) {
             if (node.left != null) {
-                return removeRecursively(node.left, val);
+                node.left = removeRecursively(node.left, val);
+                return node;
             }
         }
-        return removeRecursively(node.right, val);
+        node.right = removeRecursively(node.right, val);
+        return node;
     }
 
     private T getSuccessorFromRightRecursively(BstNode node) {
-        return null;
-    }
-
-    private BstNode findNodeByValue(BstNode node, T val) {
-        if (node == null) {
-            return null;
+        if (node.left == null) {
+            return node.val;
         }
-        if (node.val.compareTo(val) == 0) {
-            return node;
-        }
-
-        if (node.val.compareTo(val) < 0) {
-            return findNodeByValue(node.left, val);
-        }
-
-        return findNodeByValue(node.right, val);
+        return getSuccessorFromRightRecursively(node.left);
     }
 
     /**
@@ -165,7 +166,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
             return true;
         }
 
-        if (node.val.compareTo(val) < 0) {
+        if (node.val.compareTo(val) > 0) {
             return containsRecursively(node.left, val);
         }
 
@@ -180,28 +181,10 @@ public class BinarySearchTree<T extends Comparable<T>> {
      * @return a reference to the found object.
      */
     public T findGe(T val) {
-        BstNode node = root;
-        boolean switched = false;
-        while (node != null) {
-            int r = node.val.compareTo(val);
-            if (r == 0) {
-                if (switched) {
-                    return node.val;
-                }
-                switched = true;
-                node = node.left;
-                continue;
-            }
-            if (r < 0) {
-                if (switched) {
-                    return node.val;
-                }
-                switched = true;
-                node = node.left;
-                continue;
-            }
-            node = node.right;
-        }
-        return null;
+
+    }
+
+    private T recFindGe(BstNode node, T val, Direction lastDir) {
+
     }
 }
