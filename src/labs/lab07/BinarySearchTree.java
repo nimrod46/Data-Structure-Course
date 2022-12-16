@@ -2,7 +2,8 @@ package labs.lab07;
 
 public class BinarySearchTree<T extends Comparable<T>> {
 
-    BstNode root;
+    private BstNode root;
+    private int size;
 
     // Binary Search Tree Node
     class BstNode {
@@ -40,25 +41,16 @@ public class BinarySearchTree<T extends Comparable<T>> {
      */
     public BinarySearchTree() {
         root = null;
+        size = 0;
     }
 
     /**
      * returns the number of elements in the tree
      *
-     * @param val
+     * @param
      */
     public int size() {
-        return getNodeSize(root);
-    }
-
-    private int getNodeSize(BstNode node) {
-        int size = 0;
-        if (node == null) {
-            return size;
-        }
-        size += getNodeSize(node.left);
-        size += getNodeSize(node.right);
-        return size + 1;
+        return size;
     }
 
     /**
@@ -70,9 +62,14 @@ public class BinarySearchTree<T extends Comparable<T>> {
     public boolean add(T val) {
         if (root == null) {
             root = new BstNode(val);
+            size++;
             return true;
         }
-        return addNodeRecursively(root, new BstNode(val));
+        boolean added = addNodeRecursively(root, new BstNode(val));
+        if (added) {
+            size++;
+        }
+        return added;
     }
 
     private boolean addNodeRecursively(BstNode root, BstNode newNode) {
@@ -121,6 +118,8 @@ public class BinarySearchTree<T extends Comparable<T>> {
                 node.right = removeRecursively(node.right, node.val);
                 return node;
             }
+
+            size--;
 
             if (node.right != null) {
                 return node.right;
@@ -181,10 +180,50 @@ public class BinarySearchTree<T extends Comparable<T>> {
      * @return a reference to the found object.
      */
     public T findGe(T val) {
+        boolean isContains = contains(val);
+        if (isContains) {
+            return val;
+        }
 
+        if (root == null) {
+            return null;
+        }
+
+        int c = root.val.compareTo(val);
+        T v;
+        if (c > 0) {
+            v = recFindGe(root, val, Direction.LEFT);
+        } else {
+            v = recFindGe(root, val, Direction.RIGHT);
+        }
+        if (v.compareTo(val) < 0) {
+            return null;
+        }
+        return v;
     }
 
     private T recFindGe(BstNode node, T val, Direction lastDir) {
-
+        if (node == null) {
+            return null;
+        }
+        int c = node.val.compareTo(val);
+        if (c > 0) {
+            if (lastDir != Direction.LEFT) {
+                return null;
+            }
+            T t = recFindGe(node.left, val, lastDir);
+            if (t != null) {
+                return t;
+            }
+            return node.val;
+        }
+        if (lastDir != Direction.RIGHT) {
+            return null;
+        }
+        T t = recFindGe(node.right, val, lastDir);
+        if (t != null) {
+            return t;
+        }
+        return node.val;
     }
 }
