@@ -114,7 +114,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
         if (c == 0) {
             if (node.right != null && node.left != null) {
-                node.val = getSuccessorFromRightRecursively(node.right);
+                node.val = getLeftMostValue(node.right);
                 node.right = removeRecursively(node.right, node.val);
                 return node;
             }
@@ -140,11 +140,11 @@ public class BinarySearchTree<T extends Comparable<T>> {
         return node;
     }
 
-    private T getSuccessorFromRightRecursively(BstNode node) {
+    private T getLeftMostValue(BstNode node) {
         if (node.left == null) {
             return node.val;
         }
-        return getSuccessorFromRightRecursively(node.left);
+        return getLeftMostValue(node.left);
     }
 
     /**
