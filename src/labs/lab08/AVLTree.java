@@ -17,31 +17,37 @@ public class AVLTree<T extends Comparable<T>> {
         if (value.compareTo(this.value) < 0) {
             if (left != null) {
                 left = left.add(value);
-                height = Math.max(left.height, right != null ? right.height : -1) + 1;
+                updateHight();
                 if (getBalanceFactor() == 2) {
                     if (left.getBalanceFactor() >= 0) {
                         AVLTree<T> r = left;
                         AVLTree<T> tmp = left.right;
                         left.right = this;
                         this.left = tmp;
+                        updateHight();
+                        r.updateHight();
                         return r;
                     }
                 }
                 return this;
             }
             left = new AVLTree<>(value);
-            height = Math.max(left.height, right != null ? right.height : -1) + 1;
+            updateHight();
             return this;
         }
 
         if (right != null) {
             right = right.add(value);
-            height = Math.max(right.height, left != null ? left.height : -1) + 1;
+            updateHight();
             return this;
         }
         right = new AVLTree<>(value);
-        height = Math.max(right.height, left != null ? left.height : -1) + 1;
+        updateHight();
         return this;
+    }
+
+    private void updateHight() {
+        height = Math.max(left != null ? left.height : -1, right != null ? right.height : -1) + 1;
     }
 
     //return the value in this node
