@@ -2,7 +2,7 @@ package labs.lab09;
 
 public class HashTable<V> {
     public static final int DEF_MAX_HASH_SIZE = 10;
-    DLinkedList<V>[] hashList;
+    private final DLinkedList<V>[] hashList;
 
     /**
      * c'tor
