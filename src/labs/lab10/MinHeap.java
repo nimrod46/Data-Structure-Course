@@ -80,7 +80,7 @@ public class MinHeap<T extends Comparable<T>> {
         if (isEmpty()) {
             throw new IllegalStateException("Heap is empty!");
         }
-        return (T) data[1];
+        return data[1];
     }
 
     public T deleteMin() {
