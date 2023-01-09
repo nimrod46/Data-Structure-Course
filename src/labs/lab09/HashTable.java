@@ -17,6 +17,7 @@ public class HashTable<V> {
      *
      * @param hashSize, the size of the constructed hash-table.
      */
+    @SuppressWarnings({"unchecked","rawtypes"})
     public HashTable(int hashSize) {
         hashList = new DLinkedList[hashSize];
         for (int i = 0; i < hashSize; i++) {
