@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-//import il.ac.telhai.ds.misc.Person;
+//import labs.lab11.il.ac.telhai.ds.misc.Person;
 
 public class MinHeapTest {
 
